@@ -43,7 +43,7 @@ exports.login = async(req,res)=>{
         
         if(isExist && await bcryptjs.compare(password,isExist.password)){
             
-            const token = jwt.sign({ userId: isExist._id }, 'Its_My_Secret_Key');
+            const token = jwt.sign({ userId: isExist._id }, process.env.JWT_SECRET);
 
             res.cookie('token',token,cookieOptions)
 

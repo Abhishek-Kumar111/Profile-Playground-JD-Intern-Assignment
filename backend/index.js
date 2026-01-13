@@ -33,6 +33,10 @@ app.use("/api", skillRoutes);
 const publicPath = path.join(__dirname, "public");
 app.use(express.static(publicPath));
 
+app.get("/health", (req, res) => {
+  res.status(200).send("OK");
+});
+
 app.get("/", (req, res) => {
     res.send("Backend is running");
 });

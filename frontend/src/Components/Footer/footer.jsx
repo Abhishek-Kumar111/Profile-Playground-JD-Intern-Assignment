@@ -8,9 +8,9 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer-container">
         <div className="footer-section">
-          <h3 className="footer-title">Candidate Profile</h3>
+          <h3 className="footer-title">Profile-Playground</h3>
           <p className="footer-description">
-            A playground for managing and showcasing candidate information.
+            A playground for managing and showcasing my information.
           </p>
         </div>
 
@@ -35,7 +35,7 @@ const Footer = () => {
       </div>
 
       <div className="footer-bottom">
-        <p>&copy; {currentYear} Candidate Profile. Built for JD Intern Assignment.</p>
+        <p>&copy; {currentYear} Profile-Playground. Built for JD Intern Assignment.</p>
       </div>
     </footer>
   );

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { workAPI } from '../../services/api';
+import { useAuth } from '../../context/AuthContext';
 import './Work.css';
 
 const Work = () => {
+  const { isAuthenticated } = useAuth();
   const [workList, setWorkList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -100,9 +102,11 @@ const Work = () => {
     <div className="work-container">
       <div className="section-header">
         <h2>Work Experience</h2>
-        <button onClick={() => setIsFormOpen(true)} className="btn-primary">
-          Add Work Experience
-        </button>
+        {isAuthenticated && (
+          <button onClick={() => setIsFormOpen(true)} className="btn-primary">
+            Add Work Experience
+          </button>
+        )}
       </div>
 
       {error && <div className="error">{error}</div>}
@@ -176,14 +180,16 @@ const Work = () => {
               <p><strong>Company:</strong> {work.company}</p>
               {work.duration && <p><strong>Duration:</strong> {work.duration}</p>}
               {work.description && <p>{work.description}</p>}
-              <div className="work-actions">
-                <button onClick={() => handleEdit(work)} className="btn-edit">
-                  Edit
-                </button>
-                <button onClick={() => handleDelete(work._id)} className="btn-delete">
-                  Delete
-                </button>
-              </div>
+              {isAuthenticated && (
+                <div className="work-actions">
+                  <button onClick={() => handleEdit(work)} className="btn-edit">
+                    Edit
+                  </button>
+                  <button onClick={() => handleDelete(work._id)} className="btn-delete">
+                    Delete
+                  </button>
+                </div>
+              )}
             </div>
           ))}
         </div>

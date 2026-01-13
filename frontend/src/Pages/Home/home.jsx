@@ -10,7 +10,7 @@ const Home = () => {
     <div className="home">
       <h1 className="home-title">JD Assignment - Full CRUD Dashboard</h1>
       <p className="home-subtitle">
-        Manage your Profile, Projects, Work Experience, and Skills with full
+        Manage Profile, Projects, Work Experience, and Skills with full
         Create, Read, Update, and Delete operations.
       </p>
 

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { projectAPI } from '../../services/api';
+import { useAuth } from '../../context/AuthContext';
 import './Projects.css';
 
 const Projects = () => {
+  const { isAuthenticated } = useAuth();
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -114,9 +116,11 @@ const Projects = () => {
     <div className="projects-container">
       <div className="section-header">
         <h2>Projects</h2>
-        <button onClick={() => setIsFormOpen(true)} className="btn-primary">
-          Add Project
-        </button>
+        {isAuthenticated && (
+          <button onClick={() => setIsFormOpen(true)} className="btn-primary">
+            Add Project
+          </button>
+        )}
       </div>
 
       {error && <div className="error">{error}</div>}
@@ -242,14 +246,16 @@ const Projects = () => {
                   </a>
                 )}
               </div>
-              <div className="project-actions">
-                <button onClick={() => handleEdit(project)} className="btn-edit">
-                  Edit
-                </button>
-                <button onClick={() => handleDelete(project._id)} className="btn-delete">
-                  Delete
-                </button>
-              </div>
+              {isAuthenticated && (
+                <div className="project-actions">
+                  <button onClick={() => handleEdit(project)} className="btn-edit">
+                    Edit
+                  </button>
+                  <button onClick={() => handleDelete(project._id)} className="btn-delete">
+                    Delete
+                  </button>
+                </div>
+              )}
             </div>
           ))}
         </div>

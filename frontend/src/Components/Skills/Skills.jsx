@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { skillAPI } from '../../services/api';
+import { useAuth } from '../../context/AuthContext';
 import './Skills.css';
 
 const Skills = () => {
+  const { isAuthenticated } = useAuth();
   const [skills, setSkills] = useState([]);
   const [topSkills, setTopSkills] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -90,9 +92,11 @@ const Skills = () => {
     <div className="skills-container">
       <div className="section-header">
         <h2>Skills</h2>
-        <button onClick={() => setIsFormOpen(true)} className="btn-primary">
-          Add Skill
-        </button>
+        {isAuthenticated && (
+          <button onClick={() => setIsFormOpen(true)} className="btn-primary">
+            Add Skill
+          </button>
+        )}
       </div>
 
       {error && <div className="error">{error}</div>}
@@ -135,9 +139,11 @@ const Skills = () => {
               {skills.map((skill) => (
                 <div key={skill._id} className="skill-item">
                   <span>{skill.name}</span>
-                  <button onClick={() => handleDelete(skill._id)} className="btn-delete">
-                    Delete
-                  </button>
+                  {isAuthenticated && (
+                    <button onClick={() => handleDelete(skill._id)} className="btn-delete">
+                      Delete
+                    </button>
+                  )}
                 </div>
               ))}
             </div>

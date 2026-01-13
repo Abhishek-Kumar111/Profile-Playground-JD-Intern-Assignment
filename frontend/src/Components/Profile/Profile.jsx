@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { profileAPI } from '../../services/api';
+import { useAuth } from '../../context/AuthContext';
 import './Profile.css';
 
 const Profile = () => {
+  const { isAuthenticated } = useAuth();
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -130,7 +132,7 @@ const Profile = () => {
     <div className="profile-container">
       <div className="section-header">
         <h2>Profile</h2>
-        {profile && !isEditing && (
+        {isAuthenticated && profile && !isEditing && (
           <button onClick={() => setIsEditing(true)} className="btn-edit">
             Edit Profile
           </button>
@@ -141,12 +143,16 @@ const Profile = () => {
 
       {!profile && !isEditing ? (
         <div>
-          <p className="muted">No profile found. Create one below.</p>
-          <button onClick={() => setIsEditing(true)} className="btn-primary">
-            Create Profile
-          </button>
+          <p className="muted">No profile found.</p>
+          {isAuthenticated ? (
+            <button onClick={() => setIsEditing(true)} className="btn-primary">
+              Create Profile
+            </button>
+          ) : (
+            <p className="muted">Please <a href="/login">login</a> to create or edit profile.</p>
+          )}
         </div>
-      ) : isEditing || !profile ? (
+      ) : isEditing || (!profile && isAuthenticated) ? (
         <form onSubmit={handleSubmit} className="form">
           <div className="form-group">
             <label>Name *</label>

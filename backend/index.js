@@ -18,15 +18,23 @@ app.use(cors({
 require('./connection');
 
 const userRoutes = require('./Routes/user');
+const profileRoutes = require('./Routes/profile');
+const projectRoutes = require('./Routes/project');
+const workRoutes = require('./Routes/work');
+const skillRoutes = require('./Routes/skill');
 
 app.use("/api/auth",userRoutes)
+app.use("/api", profileRoutes);
+app.use("/api", projectRoutes);
+app.use("/api", workRoutes);
+app.use("/api", skillRoutes);
 
 
 const publicPath = path.join(__dirname, "public");
 app.use(express.static(publicPath));
 
 app.get("/", (req, res) => {
-    res.send("Path is working");
+    res.send("Backend is running for JD assignment");
 });
 
 

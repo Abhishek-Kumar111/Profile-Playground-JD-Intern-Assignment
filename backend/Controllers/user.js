@@ -7,7 +7,7 @@ const crypto = require("crypto")
 const cookieOptions = {
     httpOnly: true,
     secure: true, 
-    sameSite: 'Lax'
+    sameSite: 'None'
 
 };
 
